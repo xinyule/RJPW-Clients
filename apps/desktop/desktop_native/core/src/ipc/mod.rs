@@ -116,7 +116,7 @@ fn cache_dir_name() -> String {
         }
     }
 
-    "com.bitwarden.desktop".to_owned()
+    "com.rjpw.desktop".to_owned()
 }
 
 /// The main path to the IPC socket.

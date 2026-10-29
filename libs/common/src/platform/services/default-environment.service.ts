@@ -83,63 +83,32 @@ export const USER_CLOUD_REGION_KEY = new UserKeyDefinition<CloudRegion>(
  *
  * In the future we desire to load these urls from the config endpoint.
  */
-export const PRODUCTION_REGIONS: RegionConfig[] = [
-  {
-    key: Region.US,
-    domain: "bitwarden.com",
-    urls: {
-      base: null,
-      api: "https://api.bitwarden.com",
-      identity: "https://identity.bitwarden.com",
-      icons: "https://icons.bitwarden.net",
-      webVault: "https://vault.bitwarden.com",
-      notifications: "https://notifications.bitwarden.com",
-      events: "https://events.bitwarden.com",
-      scim: "https://scim.bitwarden.com",
-      send: "https://send.bitwarden.com",
-    },
-  },
-  {
-    key: Region.EU,
-    domain: "bitwarden.eu",
-    urls: {
-      base: null,
-      api: "https://api.bitwarden.eu",
-      identity: "https://identity.bitwarden.eu",
-      icons: "https://icons.bitwarden.eu",
-      webVault: "https://vault.bitwarden.eu",
-      notifications: "https://notifications.bitwarden.eu",
-      events: "https://events.bitwarden.eu",
-      scim: "https://scim.bitwarden.eu",
-      send: "https://vault.bitwarden.eu",
-    },
-  },
-  {
-    key: Region.Gov,
-    domain: "bitwarden-gov.com",
-    urls: {
-      base: null,
-      api: "https://api.bitwarden-gov.com",
-      identity: "https://identity.bitwarden-gov.com",
-      icons: "https://icons.bitwarden-gov.com",
-      webVault: "https://vault.bitwarden-gov.com",
-      notifications: "https://notifications.bitwarden-gov.com",
-      events: "https://events.bitwarden-gov.com",
-      scim: "https://scim.bitwarden-gov.com",
-      send: "https://send.bitwarden-gov.com",
-    },
-  },
-];
+// RJPW: there are no Bitwarden cloud regions in this distribution. The only
+// environment is the self-hosted RJPW server below, which is also the default.
+export const PRODUCTION_REGIONS: RegionConfig[] = [];
+
+/**
+ * The RJPW self-hosted server that clients connect to by default.
+ * Only the base URL is set; api/identity/icons/notifications/events are
+ * derived from it by UrlEnvironment, exactly like any self-hosted install.
+ */
+export const RJPW_DEFAULT_URLS: Urls = {
+  base: "https://pw.7052.cn",
+};
 
 /**
  * The default region when starting the app.
  */
-const DEFAULT_REGION = Region.US;
+const DEFAULT_REGION = Region.SelfHosted;
 
 /**
  * The default region configuration.
  */
-const DEFAULT_REGION_CONFIG = PRODUCTION_REGIONS.find((r) => r.key === DEFAULT_REGION);
+const DEFAULT_REGION_CONFIG: RegionConfig = {
+  key: Region.SelfHosted,
+  domain: "pw.7052.cn",
+  urls: RJPW_DEFAULT_URLS,
+};
 
 export class DefaultEnvironmentService implements EnvironmentService {
   private globalState: GlobalState<EnvironmentState | null>;
@@ -236,9 +205,9 @@ export class DefaultEnvironmentService implements EnvironmentService {
       region = Region.SelfHosted;
     }
 
-    // If self-hosted ensure urls are valid else fallback to default region
+    // If self-hosted without explicit urls, use the RJPW default server
     if (region == Region.SelfHosted && isEmpty(urls)) {
-      region = DEFAULT_REGION;
+      urls = { ...RJPW_DEFAULT_URLS };
     }
 
     if (region != Region.SelfHosted) {
@@ -289,9 +258,9 @@ export class DefaultEnvironmentService implements EnvironmentService {
       region = Region.SelfHosted;
     }
 
-    // If self-hosted ensure urls are valid else fallback to default region
+    // If self-hosted without explicit urls, use the RJPW default server
     if (region == Region.SelfHosted && isEmpty(urls)) {
-      region = DEFAULT_REGION;
+      urls = { ...RJPW_DEFAULT_URLS };
     }
 
     // Load urls from region config
@@ -440,12 +409,6 @@ abstract class UrlEnvironment implements Environment {
 
   getSendUrl() {
     if (this.urls.send != null) {
-      // Bitwarden production US cloud environment uses a web page on a vanity url
-      // to redirect to the correct full send path
-      if (this.urls.send === "https://send.bitwarden.com") {
-        return this.urls.send + "/#";
-      }
-
       // If using a custom send url with full send path, don't modify anything and return it
       if (this.urls.send.endsWith("/#/send/")) {
         return this.urls.send;
@@ -487,7 +450,9 @@ abstract class UrlEnvironment implements Environment {
       return this.urls.webVault + baseSuffix;
     }
 
-    return DEFAULT_REGION_CONFIG.urls[key];
+    // Self-hosted environments without a base URL fall back to the RJPW
+    // default server (derived from its base), never to an official cloud.
+    return RJPW_DEFAULT_URLS.base + baseSuffix;
   }
 }
 
@@ -500,7 +465,7 @@ export class CloudEnvironment extends UrlEnvironment {
   }
 
   /**
-   * Cloud always returns nice urls, i.e. bitwarden.com instead of vault.bitwarden.com.
+   * Cloud environments return the region's configured domain as hostname.
    */
   getHostname() {
     return this.config.domain;

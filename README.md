@@ -1,34 +1,25 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/bitwarden/brand/main/screenshots/apps-combo-logo.png" alt="Bitwarden" />
-</p>
-<p align="center">
-  <a href="https://github.com/bitwarden/clients/actions/workflows/build-browser.yml?query=branch:main" target="_blank"><img src="https://github.com/bitwarden/clients/actions/workflows/build-browser.yml/badge.svg?branch=main" alt="GitHub Workflow browser build on main" /></a>
-  <a href="https://github.com/bitwarden/clients/actions/workflows/build-cli.yml?query=branch:main" target="_blank"><img src="https://github.com/bitwarden/clients/actions/workflows/build-cli.yml/badge.svg?branch=main" alt="GitHub Workflow CLI build on main" /></a>
-  <a href="https://github.com/bitwarden/clients/actions/workflows/build-desktop.yml?query=branch:main" target="_blank"><img src="https://github.com/bitwarden/clients/actions/workflows/build-desktop.yml/badge.svg?branch=main" alt="GitHub Workflow desktop build on main" /></a>
-  <a href="https://github.com/bitwarden/clients/actions/workflows/build-web.yml?query=branch:main" target="_blank"><img src="https://github.com/bitwarden/clients/actions/workflows/build-web.yml/badge.svg?branch=main" alt="GitHub Workflow web build on main" /></a>
-</p>
+# RJPW Client Applications
 
----
+RJPW 密码管理器客户端：Windows / macOS / Linux 桌面端与浏览器扩展。
 
-# Bitwarden Client Applications
+本仓库基于 Bitwarden 官方客户端（bitwarden/clients）的开源代码改造，
+默认连接自托管的 Vaultwarden 服务端 `https://pw.7052.cn`，不再连接
+Bitwarden 官方云；桌面端自动更新地址同样指向 `https://pw.7052.cn/desktop`。
 
-This repository houses all Bitwarden client applications except the mobile applications ([iOS](https://github.com/bitwarden/ios) | [android](https://github.com/bitwarden/android)).
+## 与上游的区别
 
-Please refer to the [Clients section](https://contributing.bitwarden.com/getting-started/clients/) of the [Contributing Documentation](https://contributing.bitwarden.com/) for build instructions, recommended tooling, code style tips, and lots of other great information to get you started.
+- 已删除上游商业模块目录，构建只走开源（GPL）入口
+- 默认服务器为 `https://pw.7052.cn`（自托管预设），无官方云回退
+- 应用身份为 RJPW（appId `com.rjpw.desktop`），同时保留 `bitwarden://`
+  协议注册以兼容 Vaultwarden 的 SSO 回跳，并新增 `rjpw://`
+- 上游 CI 工作流已全部停用，待替换为自有 CI 后再启用
 
-## Related projects:
+## 许可
 
-- [bitwarden/server](https://github.com/bitwarden/server): The core infrastructure backend (API, database, Docker, etc).
-- [bitwarden/ios](https://github.com/bitwarden/ios): Bitwarden iOS Password Manager & Authenticator apps.
-- [bitwarden/android](https://github.com/bitwarden/android): Bitwarden Android Password Manager & Authenticator apps.
-- [bitwarden/directory-connector](https://github.com/bitwarden/directory-connector): A tool for syncing a directory (AD, LDAP, Azure, G Suite, Okta) to an organization.
+本仓库代码按 GNU GPL v3.0 发布（见 `LICENSE.txt` 与 `LICENSE_GPL.txt`），
+保留上游版权声明。RJPW 与 Bitwarden 无隶属或背书关系；“Bitwarden”字样
+仅在“从 Bitwarden 导入”等功能性、说明性场景出现。
 
-# We're Hiring!
+## 安全问题
 
-Interested in contributing in a big way? Consider joining our team! We're hiring for many positions. Please take a look at our [Careers page](https://bitwarden.com/careers/) to see what opportunities are [currently open](https://bitwarden.com/careers/#open-positions) as well as what it's like to work at Bitwarden.
-
-# Contribute
-
-Code contributions are welcome! Please commit any pull requests against the `main` branch. Learn more about how to contribute by reading the [Contributing Guidelines](https://contributing.bitwarden.com/contributing/). Check out the [Contributing Documentation](https://contributing.bitwarden.com/) for how to get started with your first contribution.
-
-Security audits and feedback are welcome. Please open an issue or email us privately if the report is sensitive in nature. You can read our security policy in the [`SECURITY.md`](SECURITY.md) file.
+见 `SECURITY.md`。

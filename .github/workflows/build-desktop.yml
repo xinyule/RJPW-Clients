@@ -12,8 +12,6 @@ on:
       - 'cf-pages'
     paths:
       - 'apps/desktop/**'
-      - 'bitwarden_license/bit-common/**'
-      - 'bitwarden_license/bit-desktop/**'
       - 'libs/**'
       - '*'
       - '!*.md'
@@ -26,8 +24,6 @@ on:
       - 'hotfix-rc-desktop'
     paths:
       - 'apps/desktop/**'
-      - 'bitwarden_license/bit-common/**'
-      - 'bitwarden_license/bit-desktop/**'
       - 'libs/**'
       - '*'
       - '!*.md'
@@ -196,9 +192,6 @@ jobs:
           - variant: oss
             license_type: oss
             artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
     # Note, before updating the ubuntu version of the workflow, ensure the snap base image
     # is equal or greater than the new version. Otherwise there might be GLIBC version issues.
     # The snap base for desktop is defined in `apps/desktop/electron-builder.json`
@@ -278,25 +271,6 @@ jobs:
           ls -l ../
           npm link ../sdk-internal
 
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
-
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: cache
@@ -373,8 +347,8 @@ jobs:
       - name: Upload flatpak artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: ${{ matrix.artifact_prefix }}com.bitwarden.desktop.flatpak
-          path: apps/desktop/dist/com.bitwarden.desktop.flatpak
+          name: ${{ matrix.artifact_prefix }}com.rjpw.desktop.flatpak
+          path: apps/desktop/dist/com.rjpw.desktop.flatpak
           if-no-files-found: error
 
   linux-arm64:
@@ -386,9 +360,6 @@ jobs:
           - variant: oss
             license_type: oss
             artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
     # Note, before updating the ubuntu version of the workflow, ensure the snap base image
     # is equal or greater than the new version. Otherwise there might be GLIBC version issues.
     # The snap base for desktop is defined in `apps/desktop/electron-builder.json`
@@ -471,25 +442,6 @@ jobs:
           ls -l ../
           npm link ../sdk-internal
 
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
-
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: cache
@@ -551,8 +503,8 @@ jobs:
       - name: Upload flatpak artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: ${{ matrix.artifact_prefix }}com.bitwarden.desktop-arm64.flatpak
-          path: apps/desktop/dist/com.bitwarden.desktop.flatpak
+          name: ${{ matrix.artifact_prefix }}com.rjpw.desktop-arm64.flatpak
+          path: apps/desktop/dist/com.rjpw.desktop.flatpak
           if-no-files-found: error
 
   windows:
@@ -564,9 +516,6 @@ jobs:
           - variant: oss
             license_type: oss
             artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
     runs-on: windows-2022
     needs:
       - setup
@@ -636,25 +585,6 @@ jobs:
         run: |
           ls -l ../
           npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && needs.setup.outputs.has_secrets == 'true' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && needs.setup.outputs.has_secrets == 'true' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -949,9 +879,6 @@ jobs:
           - variant: oss
             license_type: oss
             artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
     runs-on: windows-2022
     needs: setup
     permissions:
@@ -1020,25 +947,6 @@ jobs:
         run: |
           ls -l ../
           npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && needs.setup.outputs.has_secrets == 'true' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && needs.setup.outputs.has_secrets == 'true' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -1277,9 +1185,6 @@ jobs:
           - variant: oss
             license_type: oss
             artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
     runs-on: macos-15
     needs:
       - setup
@@ -1472,25 +1377,6 @@ jobs:
           ls -l ../
           npm link ../sdk-internal
 
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && needs.setup.outputs.has_secrets == 'true' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && needs.setup.outputs.has_secrets == 'true' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
-
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         id: cache
@@ -1531,10 +1417,6 @@ jobs:
             license_type: oss
             artifact_prefix: ""
             browser_artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
-            browser_artifact_prefix: "bit-"
     runs-on: macos-15
     if: ${{ needs.setup.outputs.has_secrets == 'true' }}
     needs:
@@ -1637,25 +1519,6 @@ jobs:
         run: |
           ls -l ../
           npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -1834,9 +1697,6 @@ jobs:
           - variant: oss
             license_type: oss
             artifact_prefix: ""
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
     runs-on: macos-15
     if: ${{ needs.setup.outputs.has_secrets == 'true' }}
     needs:
@@ -1913,25 +1773,6 @@ jobs:
         run: |
           ls -l ../
           npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -2088,11 +1929,6 @@ jobs:
             build_number_suffix: ""
           # Both variants upload to the same TestFlight app, so the commercial
           # build needs its own build number (e.g. 3456 vs 3456.1).
-          - variant: bit
-            license_type: commercial
-            artifact_prefix: "commercial-"
-            browser_artifact_prefix: "bit-"
-            build_number_suffix: ".1"
     runs-on: macos-15
     if: ${{ needs.setup.outputs.has_secrets == 'true' }}
     needs:
@@ -2196,25 +2032,6 @@ jobs:
         run: |
           ls -l ../
           npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
 
       - name: Cache Native Module
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
@@ -2427,7 +2244,7 @@ jobs:
           CHANGELOG="[$VARIANT] $BRANCH: $GIT_CHANGE"
 
           fastlane pilot upload \
-            --app_identifier "com.bitwarden.desktop" \
+            --app_identifier "com.rjpw.desktop" \
             --changelog "$CHANGELOG" \
             --api_key_path "$HOME/secrets/appstoreconnect-fastlane.json" \
             --pkg "$(find ./dist/mas-universal/Bitwarden*.pkg)"
@@ -2673,12 +2490,12 @@ jobs:
 
       - name: Install flatpak
         working-directory: apps/desktop/artifacts/linux/flatpak
-        run: flatpak install -y --user --bundle com.bitwarden.desktop.flatpak
+        run: flatpak install -y --user --bundle com.rjpw.desktop.flatpak
 
       - name: Run Flatpak
         run: |
           export $(dbus-launch)
-          xvfb-run -a flatpak run com.bitwarden.desktop &
+          xvfb-run -a flatpak run com.rjpw.desktop &
           sleep 30
           if pgrep  bitwarden > /dev/null; then
             pkill -9 bitwarden

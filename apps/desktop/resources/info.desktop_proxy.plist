@@ -3,6 +3,6 @@
 <plist version="1.0">
 	<dict>
 		<key>CFBundleIdentifier</key>
-		<string>com.bitwarden.desktop</string>
+		<string>com.rjpw.desktop</string>
 	</dict>
 </plist>

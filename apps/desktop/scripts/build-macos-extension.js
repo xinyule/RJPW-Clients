@@ -23,7 +23,7 @@ const paths = {
 /// its own copy, which differs only in naming beta's App Group.
 const channels = {
   stable: {
-    appId: "com.bitwarden.desktop",
+    appId: "com.rjpw.desktop",
     productName: "Bitwarden",
     provisioningProfiles: {
       "mas-dev": "PM Stable Desktop-ExtAutofill Testing",
@@ -32,7 +32,7 @@ const channels = {
     },
   },
   beta: {
-    appId: "com.bitwarden.beta.desktop",
+    appId: "com.rjpw.beta.desktop",
     productName: "Bitwarden Beta",
     provisioningProfiles: {
       "mas-dev": "PM Beta Desktop-ExtAutofill Testing",

@@ -178,7 +178,7 @@ export class NativeMessagingMain {
       description: "Bitwarden desktop <-> browser bridge",
       path: binaryPath,
       type: "stdio",
-      allowed_extensions: ["{446900e4-71c2-419f-a6a7-df9c091e268b}"],
+      allowed_extensions: ["{d1c03801-750e-47d2-8a02-bbe7a8ed9ef6}"],
     };
   }
 

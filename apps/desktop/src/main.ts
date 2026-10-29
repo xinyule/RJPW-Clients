@@ -448,15 +448,19 @@ export class Main {
           this.logService.error("Error while setting up native messaging:", err);
         }
 
-        app.removeAsDefaultProtocolClient("bitwarden");
-        if (process.env.NODE_ENV === "development" && process.platform === "win32") {
-          // Fix development build on Windows requiring a different protocol client
-          app.setAsDefaultProtocolClient("bitwarden", process.execPath, [
-            process.argv[1],
-            path.resolve(process.argv[2]),
-          ]);
-        } else {
-          app.setAsDefaultProtocolClient("bitwarden");
+        // RJPW registers both the legacy "bitwarden" scheme (kept so
+        // Vaultwarden SSO deep links keep working) and the new "rjpw" scheme.
+        for (const scheme of ["bitwarden", "rjpw"]) {
+          app.removeAsDefaultProtocolClient(scheme);
+          if (process.env.NODE_ENV === "development" && process.platform === "win32") {
+            // Fix development build on Windows requiring a different protocol client
+            app.setAsDefaultProtocolClient(scheme, process.execPath, [
+              process.argv[1],
+              path.resolve(process.argv[2]),
+            ]);
+          } else {
+            app.setAsDefaultProtocolClient(scheme);
+          }
         }
 
         // Process protocol for macOS
@@ -481,7 +485,7 @@ export class Main {
 
   private processDeepLink(argv: string[]): void {
     argv
-      .filter((s) => s.indexOf("bitwarden://") === 0)
+      .filter((s) => s.indexOf("bitwarden://") === 0 || s.indexOf("rjpw://") === 0)
       .forEach((s) => {
         this.messagingService.send("deepLink", { urlString: s });
       });

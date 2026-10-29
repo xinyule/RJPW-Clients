@@ -210,7 +210,7 @@ mod tests {
         let autostart_dir = snap.path.join(".config/autostart");
         fs::create_dir_all(&autostart_dir).unwrap();
 
-        fs::write(autostart_dir.join("com.bitwarden.desktop.desktop"), "stale").unwrap();
+        fs::write(autostart_dir.join("com.rjpw.desktop.desktop"), "stale").unwrap();
         fs::write(autostart_dir.join("bitwarden.desktop"), "old contents").unwrap();
 
         set_autostart_snap(true, &cfg, &snap.path).unwrap();
@@ -232,7 +232,7 @@ mod tests {
         let cfg = config();
         let autostart_dir = snap.path.join(".config/autostart");
         fs::create_dir_all(&autostart_dir).unwrap();
-        fs::write(autostart_dir.join("com.bitwarden.desktop.desktop"), "stale").unwrap();
+        fs::write(autostart_dir.join("com.rjpw.desktop.desktop"), "stale").unwrap();
         fs::write(autostart_dir.join("bitwarden.desktop"), "old").unwrap();
 
         set_autostart_snap(false, &cfg, &snap.path).unwrap();

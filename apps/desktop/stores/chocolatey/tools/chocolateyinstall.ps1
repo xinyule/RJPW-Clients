@@ -1,12 +1,12 @@
 ﻿$ErrorActionPreference = 'Stop';
 
-$url = 'https://github.com/bitwarden/clients/releases/download/desktop-v__version__/__artifact_prefix__Bitwarden-Installer-__version__.exe'
+$url = 'https://github.com/xinyule/RJPW-Clients/releases/download/desktop-v__version__/__artifact_prefix__RJPW-Installer-__version__.exe'
 $checksum = '__checksum__'
 
 $packageArgs = @{
-  packageName   = 'bitwarden'
+  packageName   = 'rjpw'
   fileType      = 'EXE'
-  softwareName  = 'Bitwarden'
+  softwareName  = 'RJPW'
   url           = $url
   checksum      = $checksum
   checksumType  = 'sha256'

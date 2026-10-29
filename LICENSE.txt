@@ -1,17 +1,14 @@
-Source code in this repository is covered by one of two licenses: (i) the
-GNU General Public License (GPL) v3.0 (ii) the Bitwarden License v1.0. The
-default license throughout the repository is GPL v3.0 unless the header
-specifies another license. Bitwarden Licensed code is found only in the
-/bitwarden_license directory.
+Source code in this repository is covered by the GNU General Public
+License (GPL) v3.0, unless the header of a file specifies another license.
+This distribution (RJPW) does not include the code that was previously
+offered under the Bitwarden License v1.0; that code has been removed.
 
 GPL v3.0:
-https://github.com/bitwarden/clients/blob/main/LICENSE_GPL.txt
+https://www.gnu.org/licenses/gpl-3.0.html
 
-Bitwarden License v1.0:
-https://github.com/bitwarden/clients/blob/main/LICENSE_BITWARDEN.txt
+The full GPL v3.0 text is in LICENSE_GPL.txt in this repository.
 
-No grant of any rights in the trademarks, service marks, or logos of Bitwarden is
-made (except as may be necessary to comply with the notice requirements as
-applicable), and use of any Bitwarden trademarks must comply with Bitwarden
-Trademark Guidelines 
-<https://github.com/bitwarden/server/blob/main/TRADEMARK_GUIDELINES.md>.
+No grant of any rights in the trademarks, service marks, or logos of
+Bitwarden is made (except as may be necessary to comply with the notice
+requirements as applicable), and use of any Bitwarden trademarks must
+comply with the Bitwarden Trademark Guidelines.

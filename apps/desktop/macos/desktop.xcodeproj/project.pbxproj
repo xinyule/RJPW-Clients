@@ -256,8 +256,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D83832AD2D67B9D0003FB9F8 /* ReleaseDeveloper.xcconfig */;
 			buildSettings = {
-				BITWARDEN_APP_ID = "com.bitwarden.desktop";
-				BITWARDEN_APP_GROUP = "LTZ2PFU5D6.$(BITWARDEN_APP_ID)";
+				BITWARDEN_APP_ID = "com.rjpw.desktop";
+				BITWARDEN_APP_GROUP = "$(BITWARDEN_APP_ID)";
 				BITWARDEN_PRODUCT_NAME = Bitwarden;
 				CODE_SIGN_ENTITLEMENTS = "autofill-extension/autofill_extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -265,7 +265,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = LTZ2PFU5D6;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "autofill-extension/Info.plist";
@@ -412,8 +412,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D83832AB2D67B9AE003FB9F8 /* Debug.xcconfig */;
 			buildSettings = {
-				BITWARDEN_APP_ID = "com.bitwarden.desktop";
-				BITWARDEN_APP_GROUP = "LTZ2PFU5D6.$(BITWARDEN_APP_ID)";
+				BITWARDEN_APP_ID = "com.rjpw.desktop";
+				BITWARDEN_APP_GROUP = "$(BITWARDEN_APP_ID)";
 				BITWARDEN_PRODUCT_NAME = Bitwarden;
 				CODE_SIGN_ENTITLEMENTS = "autofill-extension/autofill_extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -421,7 +421,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = LTZ2PFU5D6;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "autofill-extension/Info.plist";
@@ -446,8 +446,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 968ED08A2C52A47200FFFEE6 /* ReleaseAppStore.xcconfig */;
 			buildSettings = {
-				BITWARDEN_APP_ID = "com.bitwarden.desktop";
-				BITWARDEN_APP_GROUP = "LTZ2PFU5D6.$(BITWARDEN_APP_ID)";
+				BITWARDEN_APP_ID = "com.rjpw.desktop";
+				BITWARDEN_APP_GROUP = "$(BITWARDEN_APP_ID)";
 				BITWARDEN_PRODUCT_NAME = Bitwarden;
 				CODE_SIGN_ENTITLEMENTS = "autofill-extension/autofill_extension.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -455,7 +455,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=macosx*]" = LTZ2PFU5D6;
+				"DEVELOPMENT_TEAM[sdk=macosx*]" = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "autofill-extension/Info.plist";

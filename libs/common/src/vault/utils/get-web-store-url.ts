@@ -1,8 +1,8 @@
 import { DeviceType } from "../../enums";
 
 /**
- *  Returns the web store URL for the Bitwarden browser extension based on the device type.
- *  @defaults Bitwarden download page
+ *  Returns the web store URL for the RJPW browser extension based on the device type.
+ *  @defaults RJPW download page
  */
 export const getWebStoreUrl = (deviceType: DeviceType): string => {
   switch (deviceType) {
@@ -20,6 +20,6 @@ export const getWebStoreUrl = (deviceType: DeviceType): string => {
     case DeviceType.EdgeBrowser:
       return "https://microsoftedge.microsoft.com/addons/detail/jbkfoedolllekgbhcbcoahefnbanhhlh";
     default:
-      return "https://bitwarden.com/download/#downloads-web-browser";
+      return "https://pw.7052.cn";
   }
 };

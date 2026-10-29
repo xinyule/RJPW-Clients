@@ -11,7 +11,7 @@ macOS automatically loads extensions from apps, even if they have never been use
 pluginkit -m -v
 
 # To list a specific extension
-pluginkit -m -v -i com.bitwarden.desktop.autofill-extension
+pluginkit -m -v -i com.rjpw.desktop.autofill-extension
 ```
 
 To unregister an extension, you can either remove it from your filesystem, or use the following command:

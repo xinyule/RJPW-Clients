@@ -93,6 +93,7 @@ jobs:
         if: matrix.platform == 'macos'
         working-directory: apps/desktop
         run: |
+          ./desktop_native/autofill_provider/build.sh
           xcodebuild -project ./macos/desktop.xcodeproj -alltargets -configuration ReleaseDeveloper \
             CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= \
             BITWARDEN_APP_ID=com.rjpw.desktop BITWARDEN_PRODUCT_NAME=Bitwarden

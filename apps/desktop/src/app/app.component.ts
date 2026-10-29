@@ -898,7 +898,10 @@ export class AppComponent implements OnInit, OnDestroy {
   // Process the sso callback links
   private processDeepLink(urlString: string) {
     // Handle SSO cookie vendor callback
-    if ((urlString.indexOf("bitwarden://sso-cookie-vendor") === 0 || urlString.indexOf("rjpw://sso-cookie-vendor") === 0)) {
+    if (
+      urlString.indexOf("bitwarden://sso-cookie-vendor") === 0 ||
+      urlString.indexOf("rjpw://sso-cookie-vendor") === 0
+    ) {
       this.messagingService.send(SSO_COOKIE_VENDOR_CALLBACK_COMMAND, { urlString });
       return;
     }
@@ -912,13 +915,19 @@ export class AppComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if ((urlString.indexOf("bitwarden://duo-callback") === 0 || urlString.indexOf("rjpw://duo-callback") === 0)) {
+    if (
+      urlString.indexOf("bitwarden://duo-callback") === 0 ||
+      urlString.indexOf("rjpw://duo-callback") === 0
+    ) {
       message = "duoCallback";
     } else if (receivedState === null) {
       return;
     }
 
-    if ((urlString.indexOf("bitwarden://import-callback-lp") === 0 || urlString.indexOf("rjpw://import-callback-lp") === 0)) {
+    if (
+      urlString.indexOf("bitwarden://import-callback-lp") === 0 ||
+      urlString.indexOf("rjpw://import-callback-lp") === 0
+    ) {
       message = "importCallbackLastPass";
     } else if (urlString.indexOf(DESKTOP_SSO_CALLBACK) === 0) {
       message = "ssoCallback";

@@ -25,9 +25,7 @@
             "main": "apps/web/src/main.ts",
             "polyfills": "apps/web/src/polyfills.ts",
             "tsConfig": "apps/web/tsconfig.json",
-            "assets": [
-              "apps/web/src/favicon.ico"
-            ],
+            "assets": ["apps/web/src/favicon.ico"],
             "styles": [],
             "scripts": []
           }
@@ -104,18 +102,10 @@
             "main": "libs/components/src/main.ts",
             "polyfills": "libs/components/src/polyfills.ts",
             "tsConfig": "libs/components/tsconfig.app.json",
-            "assets": [
-              "libs/components/src/favicon.ico",
-              "libs/components/src/assets"
-            ],
-            "styles": [
-              "libs/components/src/styles.scss",
-              "libs/components/src/styles.css"
-            ],
+            "assets": ["libs/components/src/favicon.ico", "libs/components/src/assets"],
+            "styles": ["libs/components/src/styles.scss", "libs/components/src/styles.css"],
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "libs/components/src/styles"
-              ]
+              "includePaths": ["libs/components/src/styles"]
             },
             "scripts": []
           },

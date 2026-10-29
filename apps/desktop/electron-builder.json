@@ -90,22 +90,12 @@
       "Contents/PlugIns/autofill-extension.appex",
       "Frameworks/Electron Framework.framework/(Electron Framework|Libraries|Resources|Versions/Current)/.*"
     ],
-    "target": [
-      "dmg",
-      "zip"
-    ]
+    "target": ["dmg", "zip"]
   },
   "win": {
     "electronUpdaterCompatibility": ">=0.0.1",
-    "target": [
-      "portable",
-      "nsis-web",
-      "appx"
-    ],
-    "signExts": [
-      ".dll",
-      ".node"
-    ],
+    "target": ["portable", "nsis-web", "appx"],
+    "signExts": [".dll", ".node"],
     "signtoolOptions": {
       "sign": "./sign.js",
       "publisherName": "RJPW"
@@ -152,12 +142,7 @@
         "to": "libprocess_isolation.so"
       }
     ],
-    "target": [
-      "deb",
-      "rpm",
-      "AppImage",
-      "snap"
-    ],
+    "target": ["deb", "rpm", "AppImage", "snap"],
     "desktop": {
       "entry": {
         "Name": "RJPW",
@@ -289,22 +274,14 @@
   },
   "deb": {
     "artifactName": "${productName}-${version}-${arch}.${ext}",
-    "depends": [
-      "libnotify4",
-      "libxtst6",
-      "libnss3",
-      "libxss1"
-    ]
+    "depends": ["libnotify4", "libxtst6", "libnss3", "libxss1"]
   },
   "appImage": {
     "artifactName": "${productName}-${version}-${arch}.${ext}"
   },
   "rpm": {
     "artifactName": "${productName}-${version}-${arch}.${ext}",
-    "fpm": [
-      "--rpm-rpmbuild-define",
-      "_build_id_links none"
-    ]
+    "fpm": ["--rpm-rpmbuild-define", "_build_id_links none"]
   },
   "snap": {
     "summary": "RJPW is a secure and free password manager for all of your devices.",
@@ -336,18 +313,13 @@
       "u2f-devices",
       "hardware-observe"
     ],
-    "stagePackages": [
-      "default"
-    ],
+    "stagePackages": ["default"],
     "allowNativeWayland": true
   },
   "protocols": [
     {
       "name": "RJPW",
-      "schemes": [
-        "bitwarden",
-        "rjpw"
-      ]
+      "schemes": ["bitwarden", "rjpw"]
     }
   ]
 }

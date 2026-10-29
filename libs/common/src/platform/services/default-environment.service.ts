@@ -97,11 +97,6 @@ export const RJPW_DEFAULT_URLS: Urls = {
 };
 
 /**
- * The default region when starting the app.
- */
-const DEFAULT_REGION = Region.SelfHosted;
-
-/**
  * The default region configuration.
  */
 const DEFAULT_REGION_CONFIG: RegionConfig = {

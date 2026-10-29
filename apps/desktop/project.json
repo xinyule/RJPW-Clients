@@ -3,10 +3,7 @@
   "name": "desktop",
   "projectType": "application",
   "sourceRoot": "apps/desktop/src",
-  "tags": [
-    "scope:desktop",
-    "type:app"
-  ],
+  "tags": ["scope:desktop", "type:app"],
   "targets": {
     "build-native": {
       "executor": "nx:run-commands",
@@ -17,9 +14,7 @@
     },
     "build-main": {
       "executor": "nx:run-commands",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/desktop"
-      ],
+      "outputs": ["{workspaceRoot}/dist/apps/desktop"],
       "options": {
         "command": "cross-env NODE_ENV=production webpack --config webpack.config.js --config-name main",
         "cwd": "apps/desktop"
@@ -35,9 +30,7 @@
     },
     "build-preload": {
       "executor": "nx:run-commands",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/desktop"
-      ],
+      "outputs": ["{workspaceRoot}/dist/apps/desktop"],
       "options": {
         "command": "cross-env NODE_ENV=production webpack --config webpack.config.js --config-name preload",
         "cwd": "apps/desktop"
@@ -53,9 +46,7 @@
     },
     "build-renderer": {
       "executor": "nx:run-commands",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/desktop"
-      ],
+      "outputs": ["{workspaceRoot}/dist/apps/desktop"],
       "options": {
         "command": "cross-env NODE_ENV=production webpack --config webpack.config.js --config-name renderer",
         "cwd": "apps/desktop"
@@ -71,12 +62,8 @@
     },
     "build": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build-native"
-      ],
-      "outputs": [
-        "{workspaceRoot}/dist/apps/desktop"
-      ],
+      "dependsOn": ["build-native"],
+      "outputs": ["{workspaceRoot}/dist/apps/desktop"],
       "options": {
         "parallel": true,
         "commands": [
@@ -104,9 +91,7 @@
     },
     "serve": {
       "executor": "nx:run-commands",
-      "dependsOn": [
-        "build-native"
-      ],
+      "dependsOn": ["build-native"],
       "options": {
         "command": "node scripts/nx-serve.js",
         "cwd": "apps/desktop"
@@ -114,9 +99,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/apps/desktop"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/apps/desktop"],
       "options": {
         "jestConfig": "apps/desktop/jest.config.js"
       },
@@ -128,14 +111,9 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/desktop/**/*.ts",
-          "apps/desktop/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/desktop/**/*.ts", "apps/desktop/**/*.html"]
       }
     }
   }

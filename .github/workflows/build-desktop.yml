@@ -79,10 +79,31 @@ jobs:
         working-directory: apps/desktop
         run: npx electron-builder --linux deb rpm AppImage --x64 -p never
 
-      - name: Build and package macOS (unsigned, universal)
+      - name: Build app (macOS)
         if: matrix.platform == 'macos'
         working-directory: apps/desktop
-        run: npm run dist:mac
+        run: npm run build
+
+      # dist:mac/pack:mac 走 scripts/build-macos-extension.js，它写死了 Developer ID
+      # 身份与描述文件（正式签名材料由用户本人提供，未签名 CI 过不了）。这里改用
+      # xcodebuild 的 CODE_SIGNING_ALLOWED=NO 直接产未签名 appex，再按该脚本的约定
+      # 放到 macos/dist/（after-pack.js 打包时从这里取扩展），其余参数与脚本的
+      # stable 渠道保持一致。注意：产物里的扩展未签名，正式分发前仍需签名。
+      - name: Build autofill extension (macOS, unsigned)
+        if: matrix.platform == 'macos'
+        working-directory: apps/desktop
+        run: |
+          xcodebuild -project ./macos/desktop.xcodeproj -alltargets -configuration ReleaseDeveloper \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= \
+            BITWARDEN_APP_ID=com.rjpw.desktop BITWARDEN_PRODUCT_NAME=Bitwarden
+          mkdir -p macos/dist
+          cp -R macos/build/ReleaseDeveloper/autofill-extension.appex macos/dist/autofill-extension.appex
+          rm -rf macos/build
+
+      - name: Package macOS (unsigned, universal)
+        if: matrix.platform == 'macos'
+        working-directory: apps/desktop
+        run: npx electron-builder --mac --universal -p never
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

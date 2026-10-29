@@ -443,7 +443,7 @@
 				CODE_SIGN_ENTITLEMENTS = safari/safari.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LTZ2PFU5D6;
+				DEVELOPMENT_TEAM = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = safari/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,7 +452,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitwarden.desktop.safari;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rjpw.desktop.safari;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -467,7 +467,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LTZ2PFU5D6;
+				DEVELOPMENT_TEAM = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = safari/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -476,7 +476,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitwarden.desktop.safari;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rjpw.desktop.safari;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -492,7 +492,7 @@
 				CODE_SIGN_ENTITLEMENTS = desktop/desktop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = LTZ2PFU5D6;
+				DEVELOPMENT_TEAM = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = desktop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -500,7 +500,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitwarden.desktop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rjpw.desktop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -516,7 +516,7 @@
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = LTZ2PFU5D6;
+				DEVELOPMENT_TEAM = ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = desktop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -524,7 +524,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bitwarden.desktop;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rjpw.desktop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

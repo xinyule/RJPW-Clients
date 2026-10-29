@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>rjpw</id>
+    <version>0.0.0</version>
+    <packageSourceUrl>https://github.com/xinyule/RJPW-Clients/tree/main/apps/desktop/stores/chocolatey</packageSourceUrl>
+    <owners>RJPW</owners>
+    <title>RJPW</title>
+    <authors>RJPW</authors>
+    <projectUrl>https://pw.7052.cn/</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/xinyule/RJPW-Clients/main/apps/desktop/resources/icon.png</iconUrl>
+    <copyright>Copyright © 2015-2026 RJPW</copyright>
+    <projectSourceUrl>https://github.com/xinyule/RJPW-Clients/</projectSourceUrl>
+    <docsUrl>https://pw.7052.cn/</docsUrl>
+    <bugTrackerUrl>https://github.com/xinyule/RJPW-Clients/issues</bugTrackerUrl>
+    <releaseNotes>https://github.com/xinyule/RJPW-Clients/releases</releaseNotes>
+    <licenseUrl>https://github.com/xinyule/RJPW-Clients/blob/main/LICENSE.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <tags>rjpw password manager</tags>
+    <summary>RJPW is a secure and free password manager for all of your devices.</summary>
+    <description>
+      RJPW is an open source password manager client (desktop and browser
+      extension) that connects to a self-hosted Vaultwarden server.
+
+      Manage, store, secure, and share unlimited passwords across unlimited
+      devices. Passwords are protected with end-to-end encryption
+      (AES-256, salted hashing, and PBKDF2 SHA-256 / Argon2id).
+
+      Based on the Bitwarden open source clients (GPL v3.0); RJPW is not
+      affiliated with or endorsed by Bitwarden.
+    </description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

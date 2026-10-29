@@ -65,7 +65,7 @@ class CredentialProviderViewController: ASCredentialProviderViewController {
         }
 
         initializeLogging()
-        let logger = Logger(subsystem: "com.bitwarden.desktop.autofill-extension", category: "credential-provider")
+        let logger = Logger(subsystem: "com.rjpw.desktop.autofill-extension", category: "credential-provider")
 
         // The app that contains this extension, derived from the extension's own location:
         // <App>.app/Contents/PlugIns/<extension>.appex. Resolving it by path rather than by
@@ -191,7 +191,7 @@ class CredentialProviderViewController: ASCredentialProviderViewController {
     }
 
     init() {
-        logger = Logger(subsystem: "com.bitwarden.desktop.autofill-extension", category: "credential-provider")
+        logger = Logger(subsystem: "com.rjpw.desktop.autofill-extension", category: "credential-provider")
 
         logger.log("[autofill-extension] initializing extension")
 

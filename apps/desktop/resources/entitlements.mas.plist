@@ -3,14 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>com.apple.application-identifier</key>
-	<string>LTZ2PFU5D6.com.bitwarden.desktop</string>
+	<string>com.rjpw.desktop</string>
 	<key>com.apple.developer.team-identifier</key>
-	<string>LTZ2PFU5D6</string>
+	<string></string>
 	<key>com.apple.security.app-sandbox</key>
 	<true/>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>LTZ2PFU5D6.com.bitwarden.desktop</string>
+		<string>com.rjpw.desktop</string>
 	</array>
 	<key>com.apple.security.cs.allow-jit</key>
 	<true/>

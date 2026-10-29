@@ -473,7 +473,7 @@ pub fn initialize_logging() {
         tracing_subscriber::registry()
             .with(filter)
             .with(tracing_oslog::OsLogger::new(
-                "com.bitwarden.desktop.autofill-extension",
+                "com.rjpw.desktop.autofill-extension",
                 "default",
             ))
             .init();

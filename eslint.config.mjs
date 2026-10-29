@@ -180,11 +180,6 @@ export default tseslint.config(
               message: "Libs should not import app-specific code.",
             },
             {
-              target: ["libs/**/*"],
-              from: ["bitwarden_license/**/*"],
-              message: "Libs should not import licensed code from bitwarden_license/.",
-            },
-            {
               // avoid specific frameworks or large dependencies in common
               target: "./libs/common/**/*",
               from: [
@@ -373,18 +368,10 @@ export default tseslint.config(
     },
   },
   {
-    files: ["bitwarden_license/bit-common/src/**/*.ts"],
-    rules: {
-      "no-restricted-imports": buildNoRestrictedImports(["@bitwarden/bit-common/*"]),
-    },
-  },
-  {
     files: ["apps/**/*.ts"],
     rules: {
       // Catches static imports
       "no-restricted-imports": buildNoRestrictedImports([
-        "bitwarden_license/**",
-        "@bitwarden/bit-common/*",
         "@bitwarden/bit-web/*",
       ]),
     },
@@ -393,8 +380,6 @@ export default tseslint.config(
     files: ["apps/web/src/**/*.ts"],
     rules: {
       "no-restricted-imports": buildNoRestrictedImports([
-        "bitwarden_license/**",
-        "@bitwarden/bit-common/*",
         "@bitwarden/bit-web/*",
 
         "**/app/core/*",
@@ -411,8 +396,6 @@ export default tseslint.config(
     rules: {
       "no-restricted-imports": buildNoRestrictedImports([
         "@angular",
-        "bitwarden_license/**",
-        "@bitwarden/bit-common/*",
         "@bitwarden/bit-web/*",
 
         "**/popup/*",
@@ -424,8 +407,6 @@ export default tseslint.config(
     files: ["apps/browser/src/**/popup/**/*.ts"],
     rules: {
       "no-restricted-imports": buildNoRestrictedImports([
-        "bitwarden_license/**",
-        "@bitwarden/bit-common/*",
         "@bitwarden/bit-web/*",
       ]),
     },
@@ -441,7 +422,6 @@ export default tseslint.config(
     files: [
       "apps/web/**/*.html",
       "apps/browser/**/*.html",
-      "bitwarden_license/bit-web/**/*.html",
       "libs/**/*.html",
     ],
     rules: {
@@ -702,7 +682,7 @@ export default tseslint.config(
   // `@bitwarden/*` alias. Scoped to libs here; the rule self-limits to the file's owning package.
   // https://contributing.bitwarden.com/contributing/code-style/web/typescript#imports-within-the-same-package
   {
-    files: ["libs/**/*.ts", "bitwarden_license/bit-common/src/**/*.ts"],
+    files: ["libs/**/*.ts"],
     rules: {
       "@bitwarden/platform/no-self-package-import": "error",
     },
@@ -713,8 +693,6 @@ export default tseslint.config(
     files: [
       "apps/cli/src/admin-console/**/*.ts",
       "apps/web/src/app/admin-console/**/*.ts",
-      "bitwarden_license/bit-cli/src/admin-console/**/*.ts",
-      "bitwarden_license/bit-web/src/app/admin-console/**/*.ts",
       "libs/admin-console/src/**/*.ts",
     ],
     rules: {

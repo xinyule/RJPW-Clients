@@ -149,12 +149,9 @@ jobs:
     strategy:
       matrix:
         license_type:
-          - include_bitwarden_license_folder: false
+          - include_commercial_folder: false
             archive_name_prefix: ""
             readable: "open source license"
-          - include_bitwarden_license_folder: true
-            archive_name_prefix: "bit-"
-            readable: "commercial license"
     env:
       _BUILD_NUMBER: ${{ needs.setup.outputs.adj_build_number }}
       _NODE_VERSION: ${{ needs.setup.outputs.node_version }}
@@ -195,13 +192,6 @@ jobs:
           mkdir -p browser-source/apps/browser
           cp -r apps/browser/* browser-source/apps/browser
 
-          # Copy bitwarden_license/bit-browser and its bit-common dependency to the Browser source directory
-          if [[ ${{matrix.license_type.include_bitwarden_license_folder}} == "true" ]]; then
-            mkdir -p browser-source/bitwarden_license/bit-browser
-            cp -r bitwarden_license/bit-browser/* browser-source/bitwarden_license/bit-browser
-            mkdir -p browser-source/bitwarden_license/bit-common
-            cp -r bitwarden_license/bit-common/* browser-source/bitwarden_license/bit-common
-          fi
 
           # Copy libs to Browser source directory
           mkdir browser-source/libs
@@ -238,14 +228,6 @@ jobs:
             npm_package_dev_prefix: "package:dev:"
             readable: "open source license"
             type: "oss"
-          - build_prefix: "bit-"
-            artifact_prefix: "bit-"
-            source_archive_name_prefix: "bit-"
-            archive_name_prefix: "bit-"
-            npm_command_prefix: "dist:bit:"
-            npm_package_dev_prefix: "package:bit:dev:"
-            readable: "commercial license"
-            type: "commercial"
         browser:
           - name: "chrome"
             npm_command_suffix: "chrome"
@@ -309,11 +291,6 @@ jobs:
         run: npm ci
         working-directory: browser-source/
 
-      - name: Remove commercial packages
-        if: ${{ matrix.license_type.type == 'oss' }}
-        run: rm -rf node_modules/@bitwarden/commercial-sdk-internal
-        working-directory: browser-source/
-
       - name: Download SDK artifacts
         if: ${{ inputs.sdk_branch != '' && matrix.license_type.type != 'commercial' }}
         uses: bitwarden/gh-actions/download-artifacts@main
@@ -331,24 +308,6 @@ jobs:
         if: ${{ inputs.sdk_branch != '' && matrix.license_type.type != 'commercial' }}
         working-directory: browser-source/
         run: npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type.type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type.type == 'commercial' }}
-        working-directory: browser-source/
-        run: npm link ../commercial-sdk-internal
 
       - name: Check source file size
         if: ${{ startsWith(matrix.browser.name, 'firefox') }}
@@ -421,12 +380,6 @@ jobs:
             npm_command_prefix: "dist:"
             readable: "open source license"
             type: "oss"
-          - build_prefix: "bit-"
-            artifact_prefix: "bit-"
-            archive_name_prefix: "bit-"
-            npm_command_prefix: "dist:bit:"
-            readable: "commercial license"
-            type: "commercial"
     env:
       _BUILD_NUMBER: ${{ needs.setup.outputs.adj_build_number }}
       _NODE_VERSION: ${{ needs.setup.outputs.node_version }}
@@ -521,11 +474,6 @@ jobs:
         run: npm ci
         working-directory: ./
 
-      - name: Remove commercial packages
-        if: ${{ matrix.license_type.type == 'oss' }}
-        run: rm -rf node_modules/@bitwarden/commercial-sdk-internal
-        working-directory: ./
-
       - name: Download SDK Artifacts
         if: ${{ inputs.sdk_branch != '' && matrix.license_type.type != 'commercial' }}
         uses: bitwarden/gh-actions/download-artifacts@main
@@ -544,25 +492,6 @@ jobs:
         working-directory: ./
         run: |
           npm link ../sdk-internal
-
-      - name: Download Commercial SDK Artifacts
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type.type == 'commercial' }}
-        uses: bitwarden/gh-actions/download-artifacts@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build-wasm-internal.yml
-          workflow_conclusion: success
-          branch: ${{ inputs.sdk_branch }}
-          artifacts: commercial-sdk-internal
-          repo: bitwarden/sdk-internal
-          path: ../commercial-sdk-internal
-          if_no_artifact_found: fail
-
-      - name: Override Commercial SDK
-        if: ${{ inputs.sdk_branch != '' && matrix.license_type.type == 'commercial' }}
-        working-directory: ./
-        run: |
-          npm link ../commercial-sdk-internal
 
       - name: Build Safari extension
         run: npm run ${{matrix.license_type.npm_command_prefix}}safari

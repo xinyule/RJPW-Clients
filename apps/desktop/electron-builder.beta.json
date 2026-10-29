@@ -1,13 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "extraMetadata": {
-    "name": "bitwarden-beta",
-    "productName": "Bitwarden Beta"
+    "name": "rjpw-beta",
+    "productName": "RJPW Beta"
   },
-  "productName": "Bitwarden Beta",
-  "appId": "com.bitwarden.beta.desktop",
+  "productName": "RJPW Beta",
+  "appId": "com.rjpw.beta.desktop",
   "buildDependenciesFromSource": true,
-  "copyright": "Copyright © 2015-2026 Bitwarden Inc.",
+  "copyright": "Copyright © 2015-2026 RJPW",
   "directories": {
     "buildResources": "resources",
     "output": "dist",
@@ -28,7 +28,7 @@
   "generateUpdatesFilesForAllChannels": true,
   "publish": {
     "provider": "generic",
-    "url": "https://artifacts.bitwarden.com/desktop"
+    "url": "https://pw.7052.cn/desktop"
   },
   "mac": {
     "electronUpdaterCompatibility": ">=0.0.1",
@@ -39,7 +39,7 @@
     "entitlements": "resources/entitlements.mac.beta.plist",
     "entitlementsInherit": "resources/entitlements.mac.inherit.plist",
     "extendInfo": {
-      "BitwardenAppGroupIdentifier": "LTZ2PFU5D6.com.bitwarden.beta.desktop",
+      "BitwardenAppGroupIdentifier": "com.rjpw.beta.desktop",
       "ITSAppUsesNonExemptEncryption": false,
       "CFBundleLocalizations": [
         "en",
@@ -72,7 +72,7 @@
       ],
       "CFBundleDevelopmentRegion": "en"
     },
-    "provisioningProfile": "bitwarden_beta_desktop_developer_id.provisionprofile",
+    "provisioningProfile": "rjpw_beta_desktop_developer_id.provisionprofile",
     "icon": "icon.beta.icns",
     "singleArchFiles": "node_modules/@bitwarden/desktop-napi/desktop_napi.darwin-*.node",
     "x64ArchFiles": "{**/desktop_napi.darwin-*.node,**/bufferutil/**/darwin-*/*.node}",
@@ -92,7 +92,10 @@
       "Contents/PlugIns/autofill-extension.appex",
       "Frameworks/Electron Framework.framework/(Electron Framework|Libraries|Resources|Versions/Current)/.*"
     ],
-    "target": ["dmg", "zip"],
+    "target": [
+      "dmg",
+      "zip"
+    ],
     "artifactName": "Bitwarden-${version}-${arch}-mac.${ext}"
   },
   "dmg": {
@@ -121,11 +124,18 @@
   "win": {
     "electronUpdaterCompatibility": ">=0.0.1",
     "icon": "icon.beta.ico",
-    "target": ["portable", "nsis-web", "appx"],
-    "signExts": [".dll", ".node"],
+    "target": [
+      "portable",
+      "nsis-web",
+      "appx"
+    ],
+    "signExts": [
+      ".dll",
+      ".node"
+    ],
     "signtoolOptions": {
       "sign": "./sign.js",
-      "publisherName": "Bitwarden Inc."
+      "publisherName": "RJPW"
     },
     "extraFiles": [
       {
@@ -174,10 +184,10 @@
     "customExtensionsPath": "../custom-appx-extensions.beta.xml",
     "minVersion": "10.0.14393.0",
     "maxVersionTested": "10.0.26100.0",
-    "applicationId": "BitwardenBeta",
-    "identityName": "8bitSolutionsLLC.BitwardenBeta",
+    "applicationId": "rjpwdesktop",
+    "identityName": "RJPW.rjpwdesktop",
     "publisher": "CN=14D52771-DE3C-4886-B8BF-825BA7690418",
-    "publisherDisplayName": "Bitwarden Inc",
+    "publisherDisplayName": "RJPW",
     "languages": [
       "en-US",
       "af",
@@ -245,8 +255,11 @@
   },
   "protocols": [
     {
-      "name": "Bitwarden",
-      "schemes": ["bitwarden"]
+      "name": "RJPW",
+      "schemes": [
+        "bitwarden",
+        "rjpw"
+      ]
     }
   ]
 }

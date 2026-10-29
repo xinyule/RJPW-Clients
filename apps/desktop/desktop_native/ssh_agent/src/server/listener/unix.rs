@@ -12,7 +12,7 @@ use crate::server::{connection::Connection, peer_info::PeerInfo};
 /// Environment variable that overrides the default socket path
 const ENV_BITWARDEN_SSH_AUTH_SOCK: &str = "BITWARDEN_SSH_AUTH_SOCK";
 
-const FLATPAK_DATA_DIR: &str = ".var/app/com.bitwarden.desktop/data";
+const FLATPAK_DATA_DIR: &str = ".var/app/com.rjpw.desktop/data";
 
 const SOCKFILE_NAME: &str = ".bitwarden-ssh-agent.sock";
 

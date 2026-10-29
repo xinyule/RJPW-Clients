@@ -14,8 +14,8 @@ const IS_GITHUB_ACTIONS = process.env.GITHUB_ACTIONS == "true";
 /// than the app, so it inherits nothing and has to name the App Group itself -- and the group is
 /// named after the app, so each channel needs its own.
 const PROXY_ENTITLEMENTS = {
-  "com.bitwarden.desktop": "entitlements.desktop_proxy.plist",
-  "com.bitwarden.beta.desktop": "entitlements.desktop_proxy.beta.plist",
+  "com.rjpw.desktop": "entitlements.desktop_proxy.plist",
+  "com.rjpw.beta.desktop": "entitlements.desktop_proxy.beta.plist",
 };
 
 /**

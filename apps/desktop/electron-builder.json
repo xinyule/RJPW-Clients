@@ -1,12 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "extraMetadata": {
-    "name": "bitwarden"
+    "name": "rjpw"
   },
-  "productName": "Bitwarden",
-  "appId": "com.bitwarden.desktop",
+  "productName": "RJPW",
+  "appId": "com.rjpw.desktop",
   "buildDependenciesFromSource": true,
-  "copyright": "Copyright © 2015-2026 Bitwarden Inc.",
+  "copyright": "Copyright © 2015-2026 RJPW",
   "directories": {
     "buildResources": "resources",
     "output": "dist",
@@ -27,7 +27,7 @@
   "generateUpdatesFilesForAllChannels": true,
   "publish": {
     "provider": "generic",
-    "url": "https://artifacts.bitwarden.com/desktop"
+    "url": "https://pw.7052.cn/desktop"
   },
   "mac": {
     "electronUpdaterCompatibility": ">=0.0.1",
@@ -38,7 +38,7 @@
     "entitlements": "resources/entitlements.mac.plist",
     "entitlementsInherit": "resources/entitlements.mac.inherit.plist",
     "extendInfo": {
-      "BitwardenAppGroupIdentifier": "LTZ2PFU5D6.com.bitwarden.desktop",
+      "BitwardenAppGroupIdentifier": "com.rjpw.desktop",
       "ITSAppUsesNonExemptEncryption": false,
       "CFBundleLocalizations": [
         "en",
@@ -71,7 +71,7 @@
       ],
       "CFBundleDevelopmentRegion": "en"
     },
-    "provisioningProfile": "bitwarden_stable_desktop_developer_id.provisionprofile",
+    "provisioningProfile": "rjpw_stable_desktop_developer_id.provisionprofile",
     "singleArchFiles": "node_modules/@bitwarden/desktop-napi/desktop_napi.darwin-*.node",
     "x64ArchFiles": "{**/desktop_napi.darwin-*.node,**/bufferutil/**/darwin-*/*.node}",
     "extraFiles": [
@@ -90,15 +90,25 @@
       "Contents/PlugIns/autofill-extension.appex",
       "Frameworks/Electron Framework.framework/(Electron Framework|Libraries|Resources|Versions/Current)/.*"
     ],
-    "target": ["dmg", "zip"]
+    "target": [
+      "dmg",
+      "zip"
+    ]
   },
   "win": {
     "electronUpdaterCompatibility": ">=0.0.1",
-    "target": ["portable", "nsis-web", "appx"],
-    "signExts": [".dll", ".node"],
+    "target": [
+      "portable",
+      "nsis-web",
+      "appx"
+    ],
+    "signExts": [
+      ".dll",
+      ".node"
+    ],
     "signtoolOptions": {
       "sign": "./sign.js",
-      "publisherName": "Bitwarden Inc."
+      "publisherName": "RJPW"
     },
     "extraFiles": [
       {
@@ -142,10 +152,15 @@
         "to": "libprocess_isolation.so"
       }
     ],
-    "target": ["deb", "rpm", "AppImage", "snap"],
+    "target": [
+      "deb",
+      "rpm",
+      "AppImage",
+      "snap"
+    ],
     "desktop": {
       "entry": {
-        "Name": "Bitwarden",
+        "Name": "RJPW",
         "Type": "Application",
         "GenericName": "Password Manager"
       }
@@ -174,16 +189,16 @@
     }
   },
   "mas": {
-    "identity": "Bitwarden Inc",
+    "identity": "RJPW",
     "entitlements": "resources/entitlements.mas.plist",
     "entitlementsInherit": "resources/entitlements.mas.inherit.plist",
     "entitlementsLoginHelper": "resources/entitlements.mas.loginhelper.plist",
     "hardenedRuntime": true,
     "extendInfo": {
       "LSMinimumSystemVersion": "12",
-      "ElectronTeamID": "LTZ2PFU5D6"
+      "ElectronTeamID": ""
     },
-    "provisioningProfile": "bitwarden_stable_desktop_appstore.provisionprofile"
+    "provisioningProfile": "rjpw_stable_desktop_appstore.provisionprofile"
   },
   "nsisWeb": {
     "oneClick": false,
@@ -200,13 +215,13 @@
   "appx": {
     "artifactName": "${productName}-${version}-${arch}.${ext}",
     "backgroundColor": "#175DDC",
-    "applicationId": "bitwardendesktop",
-    "identityName": "8bitSolutionsLLC.bitwardendesktop",
+    "applicationId": "rjpwdesktop",
+    "identityName": "RJPW.rjpwdesktop",
     "publisher": "CN=14D52771-DE3C-4886-B8BF-825BA7690418",
     "minVersion": "10.0.14393.0",
     "maxVersionTested": "10.0.26100.0",
     "customExtensionsPath": "../custom-appx-extensions.stable.xml",
-    "publisherDisplayName": "Bitwarden Inc",
+    "publisherDisplayName": "RJPW",
     "languages": [
       "en-US",
       "af",
@@ -274,18 +289,26 @@
   },
   "deb": {
     "artifactName": "${productName}-${version}-${arch}.${ext}",
-    "depends": ["libnotify4", "libxtst6", "libnss3", "libxss1"]
+    "depends": [
+      "libnotify4",
+      "libxtst6",
+      "libnss3",
+      "libxss1"
+    ]
   },
   "appImage": {
     "artifactName": "${productName}-${version}-${arch}.${ext}"
   },
   "rpm": {
     "artifactName": "${productName}-${version}-${arch}.${ext}",
-    "fpm": ["--rpm-rpmbuild-define", "_build_id_links none"]
+    "fpm": [
+      "--rpm-rpmbuild-define",
+      "_build_id_links none"
+    ]
   },
   "snap": {
-    "summary": "Bitwarden is a secure and free password manager for all of your devices.",
-    "description": "Password Manager\n**Installation**\nBitwarden requires access to the `password-manager-service`. Please enable it through permissions or by running `sudo snap connect bitwarden:password-manager-service` after installation. See https://btwrdn.com/install-snap for details.",
+    "summary": "RJPW is a secure and free password manager for all of your devices.",
+    "description": "Password Manager\n**Installation**\nRJPW requires access to the `password-manager-service`. Please enable it through permissions or by running `sudo snap connect rjpw:password-manager-service` after installation. See https://pw.7052.cn for details.",
     "autoStart": true,
     "base": "core22",
     "confinement": "strict",
@@ -295,7 +318,7 @@
       "password-manager-service",
       {
         "polkit": {
-          "action-prefix": "com.bitwarden.Bitwarden"
+          "action-prefix": "com.rjpw.RJPW"
         }
       },
       {
@@ -313,13 +336,18 @@
       "u2f-devices",
       "hardware-observe"
     ],
-    "stagePackages": ["default"],
+    "stagePackages": [
+      "default"
+    ],
     "allowNativeWayland": true
   },
   "protocols": [
     {
-      "name": "Bitwarden",
-      "schemes": ["bitwarden"]
+      "name": "RJPW",
+      "schemes": [
+        "bitwarden",
+        "rjpw"
+      ]
     }
   ]
 }

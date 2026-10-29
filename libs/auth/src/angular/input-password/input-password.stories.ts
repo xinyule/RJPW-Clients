@@ -23,11 +23,6 @@ import { KdfConfigService } from "@bitwarden/key-management";
 // eslint-disable-next-line no-restricted-imports
 import { DEFAULT_KDF_CONFIG } from "@bitwarden/legacy-crypto";
 
-// FIXME: remove `/apps` import from `/libs`
-// FIXME: remove `src` and fix import
-// eslint-disable-next-line no-restricted-imports
-import { PreloadedEnglishI18nModule } from "../../../../../apps/web/src/app/core/tests";
-
 import { InputPasswordComponent, InputPasswordFlow } from "./input-password.component";
 
 export default {
@@ -36,7 +31,6 @@ export default {
   decorators: [
     applicationConfig({
       providers: [
-        importProvidersFrom(PreloadedEnglishI18nModule),
         importProvidersFrom(BrowserAnimationsModule),
         {
           provide: AccountService,

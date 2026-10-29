@@ -35,10 +35,6 @@ import {
   TypographyModule,
 } from "@bitwarden/components";
 
-// FIXME: remove `/apps` import from `/libs`
-// FIXME: remove `src` and fix import
-// eslint-disable-next-line no-restricted-imports
-import { PreloadedEnglishI18nModule } from "../../../../../../apps/web/src/app/core/tests";
 import { LoginEmailService } from "../../../common";
 
 import { RegistrationStartComponent } from "./registration-start.component";
@@ -78,7 +74,6 @@ const decorators = (options: {
     applicationConfig({
       providers: [
         importProvidersFrom(BrowserAnimationsModule),
-        importProvidersFrom(PreloadedEnglishI18nModule),
         {
           provide: EnvironmentService,
           useValue: {

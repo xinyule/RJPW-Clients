@@ -2,7 +2,6 @@
 const path = require("path");
 
 const config = require("./libs/components/tailwind.config.base");
-const webConfig = require("./apps/web/tailwind.config");
 const browserConfig = require("./apps/browser/tailwind.config");
 const desktopConfig = require("./apps/desktop/tailwind.config");
 
@@ -14,7 +13,6 @@ const desktopConfig = require("./apps/desktop/tailwind.config");
  */
 config.content = [
   ...config.content,
-  ...webConfig.webContent,
   ...browserConfig.browserContent,
   ...desktopConfig.desktopContent,
   path.resolve(__dirname, ".storybook/preview.tsx"),

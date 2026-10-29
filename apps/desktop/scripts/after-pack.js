@@ -100,10 +100,19 @@ async function doBuild(context) {
       id = process.env.CSC_NAME;
     } else {
       const identities = getIdentities();
-      if (identities.length === 0) {
-        throw new Error("No valid identities found");
-      }
-      id = identities[0].id;
+      id = identities.length === 0 ? null : identities[0].id;
+    }
+
+    // Unsigned builds have no usable signing identity: the CI identity above
+    // is only present on runners that had the matching certificate installed.
+    // Skip signing the proxy (it stays unsigned, like the rest of the bundle)
+    // instead of failing the whole package. When the identity is available,
+    // the proxy is signed exactly as before.
+    if (id == null || id === "" || !identityAvailable(id)) {
+      console.log(
+        "No usable code signing identity available; skipping desktop_proxy signing (unsigned build).",
+      );
+      return;
     }
 
     console.log(
@@ -160,6 +169,16 @@ const appleCertificatePrefixes = [
   // "3rd Party Mac Developer Installer:",
   "Apple Development:",
 ];
+
+function identityAvailable(id) {
+  try {
+    return getIdentities().some(
+      (identity) => identity.id === id || identity.name === id || identity.name.startsWith(id),
+    );
+  } catch {
+    return false;
+  }
+}
 
 function getIdentities() {
   const ids = child_process

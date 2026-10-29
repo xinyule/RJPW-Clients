@@ -112,12 +112,19 @@ jobs:
       # after-sign.js 无条件尝试公证（notarize），未签名包过不了它的签名校验；
       # 该脚本自带开关：APPLE_NOTARIZE=false 即跳过。只在本步设，不影响正式
       # 签名/公证流程（正式构建不经过这条 CI 命令、也不带这个环境变量）。
-      - name: Package macOS (unsigned, universal)
+      # 架构：不再出 universal 通用包，改为一条命令同时出 x64 与 arm64 两套
+      # （--x64 --arm64）。一条命令双架构时 electron-builder 生成的
+      # latest-mac.yml 会同时含两个架构的条目，自动更新可按架构分发；原生
+      # 模块步骤（cross-platform）本来就同时产出 darwin-x64 / darwin-arm64
+      # 两份二进制，electron-builder 按 ${arch} 各取所需；autofill 的
+      # xcframework 是 lipo 合成的 universal 静态库，两个架构的包里 appex
+      # 都含本架构的原生切片。
+      - name: Package macOS (unsigned, x64 + arm64)
         if: matrix.platform == 'macos'
         working-directory: apps/desktop
         env:
           APPLE_NOTARIZE: "false"
-        run: npx electron-builder --mac --universal -p never -c.mac.provisioningProfile="" -c.mac.identity=null
+        run: npx electron-builder --mac --x64 --arm64 -p never -c.mac.provisioningProfile="" -c.mac.identity=null
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

@@ -71,45 +71,33 @@ describe("EnvironmentService", () => {
     });
   };
 
+  // RJPW: this distribution has no Bitwarden cloud regions. Stored regions
+  // from older installs (US/EU/Gov) are unknown here and are treated as
+  // self-hosted, resolving to the RJPW default server with every other URL
+  // derived from its base.
+  const RJPW_DERIVED_URLS = {
+    webVault: "https://pw.7052.cn",
+    identity: "https://pw.7052.cn/identity",
+    api: "https://pw.7052.cn/api",
+    icons: "https://pw.7052.cn/icons",
+    notifications: "https://pw.7052.cn/notifications",
+    events: "https://pw.7052.cn/events",
+    scim: "https://pw.7052.cn/scim/v2",
+    send: "https://pw.7052.cn",
+  };
+
   const REGION_SETUP = [
     {
       region: Region.US,
-      expectedUrls: {
-        webVault: "https://vault.bitwarden.com",
-        identity: "https://identity.bitwarden.com",
-        api: "https://api.bitwarden.com",
-        icons: "https://icons.bitwarden.net",
-        notifications: "https://notifications.bitwarden.com",
-        events: "https://events.bitwarden.com",
-        scim: "https://scim.bitwarden.com/v2",
-        send: "https://send.bitwarden.com",
-      },
+      expectedUrls: RJPW_DERIVED_URLS,
     },
     {
       region: Region.EU,
-      expectedUrls: {
-        webVault: "https://vault.bitwarden.eu",
-        identity: "https://identity.bitwarden.eu",
-        api: "https://api.bitwarden.eu",
-        icons: "https://icons.bitwarden.eu",
-        notifications: "https://notifications.bitwarden.eu",
-        events: "https://events.bitwarden.eu",
-        scim: "https://scim.bitwarden.eu/v2",
-        send: "https://vault.bitwarden.eu",
-      },
+      expectedUrls: RJPW_DERIVED_URLS,
     },
     {
       region: Region.Gov,
-      expectedUrls: {
-        webVault: "https://vault.bitwarden-gov.com",
-        identity: "https://identity.bitwarden-gov.com",
-        api: "https://api.bitwarden-gov.com",
-        icons: "https://icons.bitwarden-gov.com",
-        notifications: "https://notifications.bitwarden-gov.com",
-        events: "https://events.bitwarden-gov.com",
-        scim: "https://scim.bitwarden-gov.com/v2",
-        send: "https://send.bitwarden-gov.com",
-      },
+      expectedUrls: RJPW_DERIVED_URLS,
     },
   ];
 
@@ -122,7 +110,7 @@ describe("EnvironmentService", () => {
 
         const env = await firstValueFrom(sut.environment$);
 
-        expect(env.hasBaseUrl()).toBe(false);
+        expect(env.hasBaseUrl()).toBe(true);
         expect(env.getWebVaultUrl()).toBe(expectedUrls.webVault);
         expect(env.getIdentityUrl()).toBe(expectedUrls.identity);
         expect(env.getApiUrl()).toBe(expectedUrls.api);
@@ -130,25 +118,21 @@ describe("EnvironmentService", () => {
         expect(env.getNotificationsUrl()).toBe(expectedUrls.notifications);
         expect(env.getEventsUrl()).toBe(expectedUrls.events);
         expect(env.getScimUrl()).toBe(expectedUrls.scim);
-        if (region === "US") {
-          expect(env.getSendUrl()).toBe(expectedUrls.send + "/#");
-        } else {
-          expect(env.getSendUrl()).toBe(expectedUrls.send + "/#/send/");
-        }
+        expect(env.getSendUrl()).toBe(expectedUrls.send + "/#/send/");
         expect(env.getKeyConnectorUrl()).toBe(undefined);
-        expect(env.isCloud()).toBe(true);
+        expect(env.isCloud()).toBe(false);
         expect(env.getUrls()).toEqual({
-          base: null,
+          base: "https://pw.7052.cn",
           cloudWebVault: undefined,
-          webVault: expectedUrls.webVault,
-          identity: expectedUrls.identity,
-          api: expectedUrls.api,
-          icons: expectedUrls.icons,
-          notifications: expectedUrls.notifications,
-          events: expectedUrls.events,
-          scim: expectedUrls.scim.replace("/v2", ""),
+          webVault: "https://pw.7052.cn",
+          identity: undefined,
+          api: undefined,
+          icons: undefined,
+          notifications: undefined,
+          events: undefined,
+          scim: null,
           keyConnector: undefined,
-          send: expectedUrls.send,
+          send: undefined,
         });
       },
     );
@@ -170,13 +154,14 @@ describe("EnvironmentService", () => {
         await awaitAsync();
 
         const env = await firstValueFrom(sut.environment$);
-        // Without fix: null USER state → buildEnvironment(null, null) → US (default)
-        // With fix: falls back to GLOBAL → EU
-        expect(env.getRegion()).toBe(Region.EU);
+        // Without fix: null USER state → buildEnvironment(null, null) → default
+        // With fix: falls back to GLOBAL; the stored EU region is unknown in
+        // RJPW and is treated as self-hosted either way.
+        expect(env.getRegion()).toBe(Region.SelfHosted);
       });
 
       it("reflects setEnvironment call when user environment state is null mid-logout", async () => {
-        // GLOBAL is US (never explicitly set to EU on this context)
+        // GLOBAL is US (never explicitly set on this context)
         // USER was EU (seeded at login time)
         setGlobalData(Region.US, new EnvironmentUrls());
         setUserData(Region.EU, new EnvironmentUrls());
@@ -186,14 +171,15 @@ describe("EnvironmentService", () => {
         stateProvider.singleUser.getFake(testUser, USER_ENVIRONMENT_KEY).nextState(null);
         await awaitAsync();
 
-        // User clicks EU in the environment selector → setEnvironment(EU) → writes GLOBAL
-        // Without fix: environment$ watches USER state (which is null and defaults to US) and ignores GLOBAL write and the value stays US
-        // With fix: environment$ falls back to GLOBAL, so setEnvironment(EU) updates GLOBAL and emits EU
+        // User picks a region in the environment selector → setEnvironment(EU) → writes GLOBAL.
+        // EU is unknown in RJPW, so it is stored as self-hosted.
+        // Without fix: environment$ watches USER state (which is null) and ignores the GLOBAL write
+        // With fix: environment$ falls back to GLOBAL, so the setEnvironment write is emitted
         await sut.setEnvironment(Region.EU);
         await awaitAsync();
 
         const env = await firstValueFrom(sut.environment$);
-        expect(env.getRegion()).toBe(Region.EU);
+        expect(env.getRegion()).toBe(Region.SelfHosted);
       });
     });
 
@@ -289,7 +275,7 @@ describe("EnvironmentService", () => {
       setGlobalData(region, new EnvironmentUrls());
       const env = await firstValueFrom(sut.environment$);
 
-      expect(env.hasBaseUrl()).toBe(false);
+      expect(env.hasBaseUrl()).toBe(true);
       expect(env.getWebVaultUrl()).toBe(expectedUrls.webVault);
       expect(env.getIdentityUrl()).toBe(expectedUrls.identity);
       expect(env.getApiUrl()).toBe(expectedUrls.api);
@@ -297,25 +283,21 @@ describe("EnvironmentService", () => {
       expect(env.getNotificationsUrl()).toBe(expectedUrls.notifications);
       expect(env.getEventsUrl()).toBe(expectedUrls.events);
       expect(env.getScimUrl()).toBe(expectedUrls.scim);
-      if (region === "US") {
-        expect(env.getSendUrl()).toBe(expectedUrls.send + "/#");
-      } else {
-        expect(env.getSendUrl()).toBe(expectedUrls.send + "/#/send/");
-      }
+      expect(env.getSendUrl()).toBe(expectedUrls.send + "/#/send/");
       expect(env.getKeyConnectorUrl()).toBe(undefined);
-      expect(env.isCloud()).toBe(true);
+      expect(env.isCloud()).toBe(false);
       expect(env.getUrls()).toEqual({
-        base: null,
+        base: "https://pw.7052.cn",
         cloudWebVault: undefined,
-        webVault: expectedUrls.webVault,
-        identity: expectedUrls.identity,
-        api: expectedUrls.api,
-        icons: expectedUrls.icons,
-        notifications: expectedUrls.notifications,
-        events: expectedUrls.events,
-        scim: expectedUrls.scim.replace("/v2", ""),
+        webVault: "https://pw.7052.cn",
+        identity: undefined,
+        api: undefined,
+        icons: undefined,
+        notifications: undefined,
+        events: undefined,
+        scim: null,
         keyConnector: undefined,
-        send: expectedUrls.send,
+        send: undefined,
       });
     });
 
@@ -384,7 +366,7 @@ describe("EnvironmentService", () => {
 
     it("self-hosted and sets all urls", async () => {
       let env = await firstValueFrom(sut.environment$);
-      expect(env.getScimUrl()).toBe("https://scim.bitwarden.com/v2");
+      expect(env.getScimUrl()).toBe("https://pw.7052.cn/scim/v2");
 
       await sut.setEnvironment(Region.SelfHosted, {
         base: "base.example.com",
@@ -414,12 +396,12 @@ describe("EnvironmentService", () => {
       expect(env.getScimUrl()).toBe("https://vault.example.com/scim/v2");
     });
 
-    it("sets the region", async () => {
+    it("sets the region, treating unknown regions as self-hosted", async () => {
       await sut.setEnvironment(Region.US);
 
       const data = await firstValueFrom(sut.environment$);
 
-      expect(data.getRegion()).toBe(Region.US);
+      expect(data.getRegion()).toBe(Region.SelfHosted);
     });
 
     it("normalizes a blank send url to null", async () => {
@@ -438,8 +420,8 @@ describe("EnvironmentService", () => {
 
   describe("getEnvironment$", () => {
     it.each([
-      { region: Region.US, expectedHost: "bitwarden.com" },
-      { region: Region.EU, expectedHost: "bitwarden.eu" },
+      { region: Region.US, expectedHost: "pw.7052.cn" },
+      { region: Region.EU, expectedHost: "pw.7052.cn" },
     ])("gets it from the passed in userId: %s", async ({ region, expectedHost }) => {
       setUserData(Region.US, new EnvironmentUrls());
       setUserData(region, new EnvironmentUrls(), alternateTestUser);
@@ -489,14 +471,14 @@ describe("EnvironmentService", () => {
   });
 
   describe("cloudWebVaultUrl$", () => {
-    it("no extra initialization, returns US vault", async () => {
-      expect(await firstValueFrom(sut.cloudWebVaultUrl$)).toBe("https://vault.bitwarden.com");
+    it("no extra initialization, returns the RJPW vault", async () => {
+      expect(await firstValueFrom(sut.cloudWebVaultUrl$)).toBe("https://pw.7052.cn");
     });
 
     it.each([
-      { region: Region.US, expectedVault: "https://vault.bitwarden.com" },
-      { region: Region.EU, expectedVault: "https://vault.bitwarden.eu" },
-      { region: Region.SelfHosted, expectedVault: "https://vault.bitwarden.com" },
+      { region: Region.US, expectedVault: "https://pw.7052.cn" },
+      { region: Region.EU, expectedVault: "https://pw.7052.cn" },
+      { region: Region.SelfHosted, expectedVault: "https://pw.7052.cn" },
     ])(
       "no extra initialization, returns expected host for each region %s",
       async ({ region, expectedVault }) => {

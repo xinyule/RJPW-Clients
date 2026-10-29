@@ -89,11 +89,15 @@ export const PRODUCTION_REGIONS: RegionConfig[] = [];
 
 /**
  * The RJPW self-hosted server that clients connect to by default.
- * Only the base URL is set; api/identity/icons/notifications/events are
- * derived from it by UrlEnvironment, exactly like any self-hosted install.
+ * Only the base URL and the web vault URL are set; api/identity/icons/
+ * notifications/events are derived from the base by UrlEnvironment,
+ * exactly like any self-hosted install. The web vault is set explicitly
+ * so cloudWebVaultUrl$ (which reads the region config's webVault)
+ * resolves to this server instead of undefined.
  */
 export const RJPW_DEFAULT_URLS: Urls = {
   base: "https://pw.7052.cn",
+  webVault: "https://pw.7052.cn",
 };
 
 /**

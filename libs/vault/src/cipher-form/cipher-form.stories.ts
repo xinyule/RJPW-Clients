@@ -1,14 +1,8 @@
 // FIXME: Update this file to be type safe and remove this and next line
 // @ts-strict-ignore
-import { importProvidersFrom, signal } from "@angular/core";
+import { signal } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import {
-  applicationConfig,
-  componentWrapperDecorator,
-  Meta,
-  moduleMetadata,
-  StoryObj,
-} from "@storybook/angular";
+import { componentWrapperDecorator, Meta, moduleMetadata, StoryObj } from "@storybook/angular";
 import { BehaviorSubject, of } from "rxjs";
 import { action } from "storybook/actions";
 
@@ -37,10 +31,6 @@ import { FolderView } from "@bitwarden/common/vault/models/view/folder.view";
 import { LoginView } from "@bitwarden/common/vault/models/view/login.view";
 import { AsyncActionsModule, ButtonModule, ItemModule, ToastService } from "@bitwarden/components";
 import { featureFlagModes } from "@bitwarden/storybook";
-// FIXME: remove `/apps` import from `/libs`
-// FIXME: remove `src` and fix import
-// eslint-disable-next-line no-restricted-imports
-import { PreloadedEnglishI18nModule } from "@bitwarden/web-vault/src/app/core/tests";
 
 import { CipherFormConfig, CipherFormGenerationService, PasswordRepromptService } from "..";
 import { SshImportPromptService } from "../services/ssh-import-prompt.service";
@@ -296,9 +286,6 @@ export default {
     componentWrapperDecorator(
       (story) => `<div class="tw-bg-background-alt tw-text-main tw-border">${story}</div>`,
     ),
-    applicationConfig({
-      providers: [importProvidersFrom(PreloadedEnglishI18nModule)],
-    }),
   ],
   args: {
     config: defaultConfig,

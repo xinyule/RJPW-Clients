@@ -17,35 +17,17 @@
   "content_scripts": [
     {
       "all_frames": false,
-      "js": [
-        "content/content-message-handler.js"
-      ],
-      "matches": [
-        "*://*/*",
-        "file:///*"
-      ],
-      "exclude_matches": [
-        "*://*/*.xml*",
-        "file:///*.xml*"
-      ],
+      "js": ["content/content-message-handler.js"],
+      "matches": ["*://*/*", "file:///*"],
+      "exclude_matches": ["*://*/*.xml*", "file:///*.xml*"],
       "run_at": "document_start"
     },
     {
       "all_frames": true,
-      "css": [
-        "content/autofill.css"
-      ],
-      "js": [
-        "content/trigger-autofill-script-injection.js"
-      ],
-      "matches": [
-        "*://*/*",
-        "file:///*"
-      ],
-      "exclude_matches": [
-        "*://*/*.xml*",
-        "file:///*.xml*"
-      ],
+      "css": ["content/autofill.css"],
+      "js": ["content/trigger-autofill-script-injection.js"],
+      "matches": ["*://*/*", "file:///*"],
+      "exclude_matches": ["*://*/*.xml*", "file:///*.xml*"],
       "run_at": "document_start"
     }
   ],
@@ -93,21 +75,12 @@
     "webRequest",
     "webRequestBlocking"
   ],
-  "optional_permissions": [
-    "nativeMessaging",
-    "privacy"
-  ],
-  "__firefox__optional_permissions": [
-    "nativeMessaging",
-    "privacy"
-  ],
+  "optional_permissions": ["nativeMessaging", "privacy"],
+  "__firefox__optional_permissions": ["nativeMessaging", "privacy"],
   "__safari__optional_permissions": null,
   "content_security_policy": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
   "sandbox": {
-    "pages": [
-      "overlay/menu-button.html",
-      "overlay/menu-list.html"
-    ],
+    "pages": ["overlay/menu-button.html", "overlay/menu-list.html"],
     "content_security_policy": "sandbox allow-scripts; script-src 'self'"
   },
   "__firefox__sandbox": null,

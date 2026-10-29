@@ -18,35 +18,17 @@
   "content_scripts": [
     {
       "all_frames": false,
-      "js": [
-        "content/content-message-handler.js"
-      ],
-      "matches": [
-        "*://*/*",
-        "file:///*"
-      ],
-      "exclude_matches": [
-        "*://*/*.xml*",
-        "file:///*.xml*"
-      ],
+      "js": ["content/content-message-handler.js"],
+      "matches": ["*://*/*", "file:///*"],
+      "exclude_matches": ["*://*/*.xml*", "file:///*.xml*"],
       "run_at": "document_start"
     },
     {
       "all_frames": true,
-      "css": [
-        "content/autofill.css"
-      ],
-      "js": [
-        "content/trigger-autofill-script-injection.js"
-      ],
-      "matches": [
-        "*://*/*",
-        "file:///*"
-      ],
-      "exclude_matches": [
-        "*://*/*.xml*",
-        "file:///*.xml*"
-      ],
+      "css": ["content/autofill.css"],
+      "js": ["content/trigger-autofill-script-injection.js"],
+      "matches": ["*://*/*", "file:///*"],
+      "exclude_matches": ["*://*/*.xml*", "file:///*.xml*"],
       "run_at": "document_start"
     }
   ],
@@ -54,9 +36,7 @@
     "service_worker": "background.js"
   },
   "__firefox__background": {
-    "scripts": [
-      "background.js"
-    ]
+    "scripts": ["background.js"]
   },
   "action": {
     "default_icon": {
@@ -117,28 +97,16 @@
     "webRequest",
     "webRequestAuthProvider"
   ],
-  "optional_permissions": [
-    "nativeMessaging",
-    "privacy"
-  ],
-  "__firefox__optional_permissions": [
-    "nativeMessaging",
-    "privacy"
-  ],
+  "optional_permissions": ["nativeMessaging", "privacy"],
+  "__firefox__optional_permissions": ["nativeMessaging", "privacy"],
   "__safari__optional_permissions": null,
-  "host_permissions": [
-    "https://*/*",
-    "http://*/*"
-  ],
+  "host_permissions": ["https://*/*", "http://*/*"],
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'",
     "__chrome__sandbox": "sandbox allow-scripts; script-src 'self'"
   },
   "sandbox": {
-    "pages": [
-      "overlay/menu-button.html",
-      "overlay/menu-list.html"
-    ]
+    "pages": ["overlay/menu-button.html", "overlay/menu-list.html"]
   },
   "__firefox__sandbox": null,
   "__chrome__side_panel": {
@@ -200,9 +168,7 @@
         "overlay/menu.html",
         "popup/fonts/*"
       ],
-      "matches": [
-        "<all_urls>"
-      ],
+      "matches": ["<all_urls>"],
       "use_dynamic_url": true
     }
   ],

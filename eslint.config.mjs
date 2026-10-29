@@ -371,9 +371,7 @@ export default tseslint.config(
     files: ["apps/**/*.ts"],
     rules: {
       // Catches static imports
-      "no-restricted-imports": buildNoRestrictedImports([
-        "@bitwarden/bit-web/*",
-      ]),
+      "no-restricted-imports": buildNoRestrictedImports(["@bitwarden/bit-web/*"]),
     },
   },
   {
@@ -406,9 +404,7 @@ export default tseslint.config(
   {
     files: ["apps/browser/src/**/popup/**/*.ts"],
     rules: {
-      "no-restricted-imports": buildNoRestrictedImports([
-        "@bitwarden/bit-web/*",
-      ]),
+      "no-restricted-imports": buildNoRestrictedImports(["@bitwarden/bit-web/*"]),
     },
   },
   {
@@ -419,11 +415,7 @@ export default tseslint.config(
   },
   // Tailwind migrated clients & libs
   {
-    files: [
-      "apps/web/**/*.html",
-      "apps/browser/**/*.html",
-      "libs/**/*.html",
-    ],
+    files: ["apps/web/**/*.html", "apps/browser/**/*.html", "libs/**/*.html"],
     rules: {
       "tailwindcss/no-custom-classname": [
         "error",

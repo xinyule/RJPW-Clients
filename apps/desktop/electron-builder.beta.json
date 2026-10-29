@@ -92,10 +92,7 @@
       "Contents/PlugIns/autofill-extension.appex",
       "Frameworks/Electron Framework.framework/(Electron Framework|Libraries|Resources|Versions/Current)/.*"
     ],
-    "target": [
-      "dmg",
-      "zip"
-    ],
+    "target": ["dmg", "zip"],
     "artifactName": "Bitwarden-${version}-${arch}-mac.${ext}"
   },
   "dmg": {
@@ -124,15 +121,8 @@
   "win": {
     "electronUpdaterCompatibility": ">=0.0.1",
     "icon": "icon.beta.ico",
-    "target": [
-      "portable",
-      "nsis-web",
-      "appx"
-    ],
-    "signExts": [
-      ".dll",
-      ".node"
-    ],
+    "target": ["portable", "nsis-web", "appx"],
+    "signExts": [".dll", ".node"],
     "signtoolOptions": {
       "sign": "./sign.js",
       "publisherName": "RJPW"
@@ -256,10 +246,7 @@
   "protocols": [
     {
       "name": "RJPW",
-      "schemes": [
-        "bitwarden",
-        "rjpw"
-      ]
+      "schemes": ["bitwarden", "rjpw"]
     }
   ]
 }

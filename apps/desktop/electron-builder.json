@@ -21,10 +21,15 @@
     "!node_modules/@bitwarden/desktop-napi/src",
     "!node_modules/@bitwarden/desktop-napi/Cargo.toml",
     "!node_modules/@bitwarden/desktop-napi/build.rs",
-    "!node_modules/@bitwarden/desktop-napi/package.json"
+    "!node_modules/@bitwarden/desktop-napi/package.json",
+    "!**/*.map",
+    "!**/node_modules/typescript/**",
+    "!locales/{af,ar,az,be,bg,bn,bs,ca,cs,cy,da,el,en_GB,en_IN,eo,es,et,eu,fa,fi,fil,gl,he,hi,hr,hu,id,it,ka,km,kn,ko,ky,lb,lt,lv,me,ml,mr,my,nb,ne,nl,nn,or,pl,pt_BR,pt_PT,ro,si,sk,sl,sr,sv,ta,te,th,tr,uk,vi}/**"
   ],
   "electronVersion": "43.5.0",
   "generateUpdatesFilesForAllChannels": true,
+  "compression": "maximum",
+  "electronLanguages": ["zh-CN", "zh-TW", "en-US", "fr", "ja", "ru", "de"],
   "publish": {
     "provider": "generic",
     "url": "https://pw.7052.cn/desktop"

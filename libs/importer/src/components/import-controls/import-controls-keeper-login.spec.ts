@@ -687,7 +687,7 @@ describe("ImportControlsComponent: Keeper login in the card", () => {
   describe("copy on each screen, against the Figma frames", () => {
     type Message = { message: string; placeholders?: Record<string, { content: string }> };
     const messages: Record<string, Message> = JSON.parse(
-      readFileSync(join(__dirname, "../../../../../apps/web/src/locales/en/messages.json"), "utf8"),
+      readFileSync(join(__dirname, "../../../../../apps/desktop/src/locales/en/messages.json"), "utf8"),
     );
     const real = (key: string, ...subs: string[]): string => {
       const entry = messages[key];

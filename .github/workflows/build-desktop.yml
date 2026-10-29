@@ -104,10 +104,15 @@ jobs:
       # electron-builder.json 里 mac.provisioningProfile 指向用户正式签名用的
       # 描述文件（仓库里没有），未签名构建须在命令行覆盖为空——上游自己的
       # pack:local:mac 用的就是这个办法（-c.mac.provisioningProfile=""）。
+      # 另须 -c.mac.identity=null 让 electron-builder 彻底不签名：无身份时它会
+      # 回退 ad-hoc 签名（--sign -），而包内 autofill-extension.appex 是完全未
+      # 签名状态，签外层会报 "code object is not signed at all" 中止。上游自己的
+      # pack:mac:mas 也用 identity=null 禁签。此覆盖只作用于本条未签名 CI 命令，
+      # 正式签名走的 dist:mac/pack:mac 不受影响。
       - name: Package macOS (unsigned, universal)
         if: matrix.platform == 'macos'
         working-directory: apps/desktop
-        run: npx electron-builder --mac --universal -p never -c.mac.provisioningProfile=""
+        run: npx electron-builder --mac --universal -p never -c.mac.provisioningProfile="" -c.mac.identity=null
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
